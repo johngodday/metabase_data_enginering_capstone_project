@@ -27,5 +27,26 @@ EXECUTE GetOrderDetail USING @id;
 --                Exercise: Create optimized queries to manage and analyze data
 #####################################################################################
 
-CREATE PROCEDURE CancelOrder(IN OrderID INT)
-DELETE FROM orders;
+DELIMITER //
+CREATE PROCEDURE CancelOrder(IN orderIDToDelete INT)
+BEGIN
+  DECLARE orderExistence INT;
+
+  -- Check if the order exists in the database
+  SELECT COUNT(*) INTO orderExistence FROM Orders WHERE OrderID = orderIDToDelete;
+
+  -- If the order exists, delete it
+  IF orderExistence > 0 THEN
+    -- First delete related records from OrderDeliveryStatuses table
+    DELETE FROM delivery_status WHERE OrderID = orderIDToDelete;
+
+    -- Then delete the order from the Orders table
+    DELETE FROM Orders WHERE OrderID = orderIDToDelete;
+
+    SELECT CONCAT('Order ', orderIDToDelete, ' is cancelled') AS 'Confirmation';
+  ELSE
+    SELECT CONCAT('Order ', orderIDToDelete, ' does not exist') AS 'Confirmation';
+  END IF;
+END;
+//
+DELIMITER ;
