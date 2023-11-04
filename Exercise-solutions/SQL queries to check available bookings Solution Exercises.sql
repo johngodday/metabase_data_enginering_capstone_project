@@ -4,6 +4,7 @@ Use littlelemondb;
 
 SHOW tables;
 
+
 #######################################################
 --                Solution To Task One
 --                Exercise: Create SQL queries to check available bookings based on user input

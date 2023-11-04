@@ -7,7 +7,7 @@ This project is a part of the **Meta Database Engineer Certificate** course on C
 All files in this repository contains all the files used for this project.
 
 
-## Set Requirement
+## Set up Requirements
 
 1. **MYSQL Server**
 2. **MYSQL WorkBench**
